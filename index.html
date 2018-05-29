@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Калькулятор</title>
+    <style type="text/css">
+        .button {
+            display: inline-block;
+            
+
+            height: 80px;
+            cursor: pointer;
+            border-radius: 50%;
+            width: 80px;
+            box-shadow: 0 3px 20px rgba(0,0,0,.25),
+            inset 0 2px 0 rgba(255,255,255,.6),
+            0 2px 0 rgba(0,0,0,.1),
+            inset 0 0 20px rgba(0,0,0,.1);
+        }
+
+        .output {
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 24px;
+            margin: 4px 2px;
+            cursor: pointer;
+            width: 277px;
+        }
+
+        .clava {
+            position: absolute;
+            width: 350px;
+            height: 200px;
+            margin-left: 35px;
+        }
+
+        .zero {
+            position: relative;
+            display: inline-block;
+        }
+
+        .one {
+            position: relative;
+            display: inline-block;
+        }
+
+        .two {
+            display: inline-block;
+        }
+
+        .three {
+            display: inline-block;
+        }
+
+        .plus{
+            display: inline-block;
+        }
+
+        .five {
+            display: inline-block;
+        }
+        .four {
+            display: inline-block;
+        }
+
+        .six {
+            display: inline-block;
+        }
+
+        .minus {
+            display: inline-block;
+        }
+
+        .seven {
+            display: inline-block;
+        }
+        .eight {
+            display: inline-block;
+        }
+        .nine {
+            display: inline-block;
+        }
+        .mult {
+            display: inline-block;
+        }
+        .C {
+            display: inline-block;
+        }
+
+        .div {
+            display: inline-block;
+        }
+        .ravno {
+            display: inline-block;
+        }
+    </style>
+    <script type="text/javascript">
+        function addToInput(element) {
+            var text = document.getElementById('output').value;
+            text += element.innerText;
+            document.getElementById('output').value = text;
+        }
+
+        function addToInputOp(element) {
+            var text = document.getElementById('output').value;
+            text += ' ' +element.innerText + ' ';
+            document.getElementById('output').value = text;
+        }
+
+        function clearInput() {
+            document.getElementById('output').value='';
+        }
+
+        function Calculator() {
+            var methods = {
+                "-": function (a, b) {
+                    return a - b;
+                },
+                "+": function (a, b) {
+                    return a + b;
+                },
+                "*": function (a, b) {
+                    return a * b;
+                },
+                "/": function (a, b) {
+                    return a / b;
+                }
+            };
+
+            this.calculate = function (str) {
+                var split = str.split(' '),
+                    a = +split[0],
+                    op = split[1],
+                    b = +split[2]
+
+                if (!methods[op] || isNaN(a) || isNaN(b)) {
+                    return NaN;
+                }
+
+                return methods[op](a, b);
+            };
+        }
+
+        function ravno() {
+            var calc = new Calculator();
+            document.getElementById('output').value = calc.calculate(document.getElementById('output').value);
+        }
+
+        function changeColorMouseOver(elem) {
+            elem.setAttribute('style', 'background-color: aqua');
+        }
+
+        function changeColorMouseOut(elem) {
+            elem.setAttribute('style', 'background-color: dodgerblue');
+        }
+    </script>
+</head>
+<body>
+<div class="output">
+    <input type="text" id="output" class="output">
+</div>
+<div class="clava">
+    <div class="one">
+        <button class="button" id="1" value="1" onclick="addToInput(this)" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">1</button>
+    </div>
+    <div class="two">
+        <button class="button" id="2" value="2" onclick="addToInput(this)" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">2</button>
+    </div>
+    <div class="three">
+        <button class="button" id="3" value="3" onclick="addToInput(this)" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">3</button>
+    </div>
+    <div class="plus">
+        <button class="button" id="+" value="+" onclick="addToInputOp(this)" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">+</button>
+    </div>
+    <div class="four">
+        <button class="button" id="4" value="4" onclick="addToInput(this)" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">4</button>
+    </div>
+    <div class="five">
+        <button class="button" id="5" value="5" onclick="addToInput(this)" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">5</button>
+    </div>
+    <div class="six">
+        <button class="button" id="6" value="6" onclick="addToInput(this)" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">6</button>
+    </div>
+    <div class="minus">
+        <button class="button" id="-" value="-" onclick="addToInputOp(this)" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">-</button>
+    </div>
+    <div class="seven">
+        <button class="button" id="7" value="7" onclick="addToInput(this)" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">7</button>
+    </div>
+    <div class="eight">
+        <button class="button" id="8" value="8" onclick="addToInput(this)" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">8</button>
+    </div>
+    <div class="nine">
+        <button class="button" id="9" value="9" onclick="addToInput(this)" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">9</button>
+    </div>
+    <div class="mult">
+        <button class="button" id="*" value="*" onclick="addToInputOp(this)" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">*</button>
+    </div>
+    <div class="C">
+        <button class="button" id="C" value="C" onclick="clearInput()" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">C</button>
+    </div>
+    <div class="zero">
+        <button class="button" id="0" value="0" onclick="addToInput(this)" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">0</button>
+    </div>
+    <div class="div">
+        <button class="button" id="/" value="/" onclick="addToInputOp(this)" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">/</button>
+    </div>
+    <div class="ravno">
+        <button class="button" id="ravno" value="=" onclick="ravno()" onmouseover="changeColorMouseOver(this)" onmouseout="changeColorMouseOut(this)" style="background-color: dodgerblue">=</button>
+    </div>
+
+</div>
+</body>
+</html>

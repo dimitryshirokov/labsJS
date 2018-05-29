@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form method="post">
+        <input type="text" name="name" placeholder="Введите имя" oninput="eraseNumbs(this)">
+        <p id="nameAm">Осталось символов: 10</p>
+        <input type="text" name="family" placeholder="Введите фамилию" oninput="eraseNumbs(this)">
+        <p id="famAm">Осталось символов: 15</p>
+        <input type="text" name="patr" placeholder="Введите отчество" oninput="eraseNumbs(this)">
+        <p id="otAm">Осталось символов: 15</p>
+        <input type="date" placeholder="Введите дату рождения" oninput="checkBirth(this)"><br>
+        <p id="birthAl"></p>
+        <input type="text" name="tel" placeholder="Введите телефон" oninput="eraseChars(this)"><br>
+        <p id="telAm">Осталось символов: 11</p>
+        <p id="telAl"></p>
+        <input type="text" name="email" oninput="checkEmail(this)">
+        <p id="emailAl"></p>
+        <textarea id="text" name="txt" placeholder="О себе" oninput="countChars(this)"></textarea>
+        <p id="txtAm">Осталось символов: 250</p>
+        <input id="sub" type="submit" hidden>
+        <input type="button" value="Отправить" onclick="checkCorrect()">
+        <p id="subAl"></p>
+    </form>
+</body>
+
+<script type="text/javascript">
+
+    var telef = false;
+    var name1 = false;
+    var famil = false;
+    var patron = false;
+    var birth = false;
+    var textAb = false;
+    var emaill = false;
+
+    function checkCorrect() {
+        if (telef && name1 && famil && patron && birth && textAb && emaill){
+            document.getElementById('sub').click();
+        }
+        else {
+            document.getElementById('subAl').innerText = "Введите всё правильно";
+        }
+
+    }
+
+    function checkBirth(elem) {
+        var text = elem.value.toString();
+        if (text.match(/[0-3][0-9].[0-1][0-9].[0-2][0-9][0-9][0-9]/i)) {
+            birth = true;
+            document.getElementById('birthAl').innerText = "";
+        }
+        else {
+            document.getElementById('birthAl').innerText = "Дата рождения введена неправильно";
+            birth = false;
+        }
+    }
+
+    function checkEmail(elem) {
+        var text = elem.value.toString();
+        var textbool = text.match(/@/ig);
+        if (textbool.length > 1){
+            document.getElementById('emailAl').innerText = "Email введён неправильно";
+            emaill = false;
+        }
+        else if (textbool.length < 1) {
+            document.getElementById('emailAl').innerText = "Email введён неправильно";
+            emaill = false;
+        }
+        else {
+            document.getElementById('emailAl').innerText = "";
+            emaill = true;
+        }
+
+    }
+
+    function eraseChars(elem) {
+        var text = elem.value.toString();
+        var textout = text.replace(/[^0-9]/g, '');
+        elem.value = textout;
+
+        countChars(elem);
+        telCorrect(elem);
+    }
+
+    function telCorrect(elem) {
+        if (elem.value.match(/[7][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]/i)) {
+            document.getElementById('telAl').innerText = "Телефон введён правильно";
+            telef = true;
+        }
+        else {
+            document.getElementById('telAl').innerText = "Телефон введён неправильно";
+            telef = false;
+        }
+    }
+
+    function eraseNumbs(elem) {
+        var text = elem.value.toString();
+        var textout = text.replace(/0/g, '');
+        var textout = textout.replace(/1/g, '');
+        var textout = textout.replace(/2/g, '');
+        var textout = textout.replace(/3/g, '');
+        var textout = textout.replace(/4/g, '');
+        var textout = textout.replace(/5/g, '');
+        var textout = textout.replace(/6/g, '');
+        var textout = textout.replace(/7/g, '');
+        var textout = textout.replace(/8/g, '');
+        var textout = textout.replace(/9/g, '');
+        elem.value = textout;
+        countChars(elem);
+    }
+
+    function countChars(elem) {
+        var amount =  elem.value.length;
+        switch (elem.name) {
+            case 'name':
+                if (amount <= 10) {
+                    document.getElementById('nameAm').innerText = "Осталось символов: " + (10 - amount);
+                    name1 = true;
+                }
+                else {
+
+                    elem.value = elem.value.toString().substring(0, elem.value.length - 1);
+                }
+                break;
+            case 'family':
+                if (amount <= 15){
+                    document.getElementById('famAm').innerText = "Осталось символов: " + (15 - amount);
+                    famil = true;
+                }
+                else {
+
+                    elem.value = elem.value.toString().substring(0, elem.value.length - 1);
+
+                }
+                break;
+            case 'patr':
+                if (amount <= 15){
+                    document.getElementById('otAm').innerText = "Осталось символов: " + (15 - amount);
+                    patron = true;
+                }
+                else {
+
+                    elem.value = elem.value.toString().substring(0, elem.value.length - 1);
+                }
+                break;
+            case 'txt':
+                if (amount <= 250){
+                    document.getElementById('txtAm').innerText = "Осталось символов: " + (250 - amount);
+                    textAb = true;
+                }
+                else {
+
+                    elem.value = elem.value.toString().substring(0, elem.value.length - 1);
+                }
+                break;
+            case 'tel':
+                if (amount <= 11){
+                    document.getElementById('telAm').innerText = "Осталось символов: " + (11 - amount);
+                    telef = true;
+                }
+                else {
+
+                    elem.value = elem.value.toString().substring(0, elem.value.length - 1);
+                }
+                break;
+        }
+
+    }
+</script>
+</html>
